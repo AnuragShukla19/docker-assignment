@@ -37,9 +37,15 @@ npm install
 # Copy the example env file
 cp .env.example .env.local
 
-# Add your Firecrawl API key to .env.local
-FIRECRAWL_API_KEY=fc-your-api-key-here
+# Edit .env.local and add your Firecrawl API key
+# FIRECRAWL_API_KEY=fc-your-api-key-here
 ```
+
+**⚠️ CRITICAL SECURITY WARNING:**
+- **NEVER** commit `.env.local` to Git - it contains your private API key
+- **NEVER** share your API key in screenshots, chat, or public repos
+- The `.env.local` file is already in `.gitignore` to prevent accidental commits
+- See [SECURITY.md](../SECURITY.md) for complete security guidelines
 
 3. **Run the development server:**
 ```bash
@@ -160,7 +166,53 @@ The app can be deployed to any Node.js hosting platform:
 - AWS Amplify
 - DigitalOcean App Platform
 
-## 🛡️ Production Features
+## � Security (IMPORTANT!)
+
+### Before Pushing to GitHub
+
+**Run the security check script:**
+```powershell
+# Windows PowerShell
+.\security-check.ps1
+
+# Or manually check
+git status
+# Verify .env.local is NOT in the list
+```
+
+### Security Checklist
+
+✅ **Protected files (never commit these):**
+- `.env.local` - Contains your private API key
+- `.env` - Any environment file with real credentials
+- `*.key`, `*.pem` - Certificate files
+- `secrets.json` - Any file with credentials
+
+✅ **What IS safe to commit:**
+- `.env.example` - Template with placeholder values only
+- All source code (`.ts`, `.tsx`, `.js` files)
+- Configuration files (`next.config.js`, `tailwind.config.js`)
+- Documentation files
+
+### If You Accidentally Commit Secrets
+
+1. **Remove from Git immediately:**
+   ```bash
+   git rm --cached .env.local
+   git commit -m "Remove sensitive file"
+   ```
+
+2. **Rotate your API key IMMEDIATELY:**
+   - Go to https://firecrawl.dev/app
+   - Revoke the exposed key
+   - Generate a new key
+   - Update `.env.local` with new key
+
+3. **Update all deployments** with the new key
+
+📖 **Read [SECURITY.md](../SECURITY.md) for complete security guidelines**
+
+## �🛡️ Production Features
 
 ✅ **TypeScript** - Full type safety across the application  
 ✅ **Error Handling** - Comprehensive error boundaries and user feedback  
