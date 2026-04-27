@@ -11,7 +11,7 @@ This project demonstrates how to containerize a Node.js application using Docker
 ### 1. Clone Repository
 
 ```
-git clone <your-repo-link>
+git clone https://github.com/AnuragShukla19/docker-assignment
 cd FireCrawl
 ```
 
